@@ -38,7 +38,7 @@ pwd
 # Expected: /workspaces/Flask_PWA_Programming_For_The_Web_Task_Source
 ```
 
-````
+```
 
 ### 2. Verify Flask Environment
 
