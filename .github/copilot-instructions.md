@@ -283,7 +283,7 @@ conn.execute('SELECT * FROM users WHERE age > 18 ORDER BY name')
 
 **Response Template**:
 
-````
+```
 
 🔍 **Environment Check**:
 Let's verify your setup:
