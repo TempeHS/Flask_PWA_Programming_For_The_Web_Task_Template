@@ -945,122 +945,58 @@ Validation is important to ensure the app is compliant with [W3 web standards](h
 
 ---
 
-### Take your app further
+## � Ready for More? Try the Extension Activities!
 
-The following code snippets will help you create a simple form on the add.html page. This form allows people to add their details to an email database for updates on your catalogue. Less explicit instructions have been provided; students are encouraged to practice their BASH, SQL Flask, and HTML to bring it all together. The screenshot below shows what the page should look like, and when users submit, the database is updated.
+Congratulations on completing the core tutorial! You now have a working Flask PWA application.
 
-![Screen capture of the finished PWA](/docs/README_resources/form_example.png "This is what your application will look like")
+**Want to take your skills further?** Check out our [**Extension Activities**](extensions.md) which include:
 
-.
+### Available Extensions
 
-1. Page specifications:
-   - Simple form where the user inserts their name and email address
-   - When they click submit, the database is updated
-   - The input form must be styled to be consistent with the rest of the website
-   - A message confirming submission is returned to the user
-2. SQL schema specifications:
+1. **[Extension 1: Create Email Subscription Form](extensions.md#extension-1-create-email-subscription-form)** ⭐⭐
 
-   - A new table called contact_list
-   - 3 columns
+   - Build a complete contact form with database integration
+   - Learn HTTP methods (GET vs POST) and form handling
+   - Practice SQL INSERT operations with parameterised queries
 
-     - `id` - Primary key that increments automatically (SQLite handles this)
-     - `email` - User's email address (must be unique to prevent duplicates)
-     - `name` - User's display name
+2. **[Extension 2: Handle Duplicate Email Submissions](extensions.md#extension-2-handle-duplicate-email-submissions)** ⭐⭐
 
-**Understanding the Contact Form SQL:**
+   - Implement Python exception handling with try-except
+   - Handle SQL UNIQUE constraint violations gracefully
+   - Display user-friendly error messages
 
-```sql
--- You'll need to create this table first:
-CREATE TABLE contact_list (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    email TEXT UNIQUE NOT NULL,
-    name TEXT NOT NULL
-);
-```
+3. **[Extension 3: Refactor Database Calls with Context Managers](extensions.md#extension-3-refactor-database-calls-with-context-managers)** ⭐
 
-```python
-def insertContact(email,name):
-  con = sql.connect("database/data_source.db")
-  cur = con.cursor()
-  # The ? placeholders prevent SQL injection attacks
-  # Values are safely inserted in the order: (email, name)
-  cur.execute("INSERT INTO contact_list (email,name) VALUES (?,?)", (email,name))
-  con.commit()
-  con.close()
-```
+   - Improve code reliability and resource management
+   - Learn Python best practices with the `with` statement
 
-> [!Note]
-> You will need to catch the expectation of a duplicate email
+4. **[Extension 4: Add Language Filtering to the Extensions Catalogue](extensions.md#extension-4-add-language-filtering-to-the-extensions-catalogue)** ⭐⭐
 
-**Understanding Form Handling with HTTP Methods:**
-This route handles both GET and POST requests differently:
+   - Implement URL query parameters and dynamic filtering
+   - Practice full-stack development with Flask and SQL
 
-- **GET request**: User visits `/add.html` → Show the empty form
-- **POST request**: User submits form → Process data and show confirmation
+5. **[Extension 5: Add Online/Offline Status Detection](extensions.md#extension-5-add-onlineoffline-status-detection)** ⭐⭐
 
-```python
-@app.route('/add.html', methods=['POST', 'GET'])
-def add():
-   if request.method=='POST':              # Form was submitted
-      email = request.form['email']        # Get data from form fields
-      name = request.form['name']
-      dbHandler.insertContact(email,name)  # Save to database
-      return render_template('/add.html', is_done=True)  # Show success message
-   else:                                   # GET request - just viewing
-      return render_template('/add.html')  # Show empty form
-```
+   - Enhance user experience with network status notifications
+   - Learn JavaScript event handling for PWAs
 
-**Template Engine Conditional Syntax:**
+6. **[Extension 6: Add App Installation Prompt](extensions.md#extension-6-add-app-installation-prompt)** ⭐⭐
+   - Create a custom PWA installation button
+   - Increase user engagement and app adoption
 
-- `{% if condition %}` - Show content if condition is true
-- `{% else %}` - Alternative content
-- `{% endif %}` - End the condition block
+Each extension includes:
 
-```html
-{% if is_done %} <--DO THIS--> {% else %} <--DO THIS--> {% endif %}
-```
+- ✅ Step-by-step instructions
+- ✅ Learning objectives and understanding checks
+- ✅ Git workflow integration
+- ✅ Complete troubleshooting guide
+- ✅ Real-world best practices
 
-**Understanding HTML Form Methods:**
-The `method="POST"` attribute tells the browser to send form data using POST request:
-
-- **POST**: Secure for sending form data (email, passwords, personal info)
-- **GET**: Data appears in URL - only use for searches, not sensitive data
-- **action="/add.html"**: Where to send the form data when submitted
-
-```html
-<form action="/add.html" method="POST" class="box">
-  <div>
-    <label class="form-label">Email address</label>
-    <input
-      name="email"
-      type="email"
-      class="form-control"
-      id="email"
-      pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2, 4}$"
-      placeholder="name@example.com"
-    />
-  </div>
-  <div>
-    <label class="form-label">Name</label>
-    <textarea class="form-control" name="name" id="name" rows="1"></textarea>
-  </div>
-  <br />
-  <div>
-    <button type="submit" class="btn">Submit</button>
-  </div>
-</form>
-```
-
-```css
-.form-control {
-}
-```
-
-> **Need help with forms or advanced features?** See [🔧 Troubleshooting Common Issues](#-troubleshooting-common-issues) below.
+**[👉 Start the Extension Activities Now](extensions.md)**
 
 ---
 
-## 🔧 Troubleshooting Common Issues
+## �🔧 Troubleshooting Common Issues
 
 ### Environment Setup Issues
 
